@@ -1,0 +1,25 @@
+name: Deploy Api Docs
+on: 
+  push:
+    branches: [main]
+jobs:
+  create-deployment-artifacts:
+    name: Create Deployment Artifacts.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node 14 setup
+        uses: actions/setup-node@v2
+      - name: Install Redoc cli
+        run: |
+          npm install -g redoc-cli
+          redoc-cli bundle petstore.json -o petstore.html
+      - name: Scp docs to remote
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }} # host address
+          username: ${{ secrets.USERNAME }} # username to access this host
+          port: ${{ secrets.PORT }} # file transfer port
+          key: ${{ secrets.API_KEY }} # you will get this key by cat ~/.ssh/id_rsa
+          source: "petstore.html" # comma seperated list of documents
+          target: ${{ secrets.TARGET }} # root dir of the remote web server

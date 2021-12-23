@@ -11,11 +11,10 @@ jobs:
       
       - name: Install Node,Redoc
         uses: actions/setup-node@v2
-        run: |
-          npm install -g redoc-cli
 
       - name: "Generate static html"
         run: |
+          npm install -g redoc-cli
           redoc-cli build ./openapi-schemas/hello/helloworld.swagger.json
           mv helloworld.swagger.json build/hellowworld.html
 

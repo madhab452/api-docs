@@ -50,8 +50,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.API_KEY }}
-          source: ${{ github.sha }}.tar.gz
-          target: ${{ secrets.TARGET }}
           script: | 
             tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C ${{ secrets.TARGET }}
             rm ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz

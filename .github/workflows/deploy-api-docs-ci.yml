@@ -27,6 +27,7 @@ jobs:
           path: ${{ github.sha }}.tar.gz
 
   prepare-release-artifacts:
+    name: Prepare Release Artifacts.
     runs-on: ubuntu-latest
     needs: create-deployment-artifacts
     steps:
@@ -34,7 +35,7 @@ jobs:
         with: 
           name: api-doc-build
       - name: Upload
-        uses: appleboy/scp-actions@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }} # host address
           username: ${{ secrets.USERNAME }} # username to access this host

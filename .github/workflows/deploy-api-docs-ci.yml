@@ -43,3 +43,17 @@ jobs:
           key: ${{ secrets.API_KEY }} # you will get this key by cat ~/.ssh/id_rsa
           source: ${{ github.sha }}.tar.gz # zipped artifact name
           target: ${{ secrets.TARGET }} # root dir of the remote web server
+      - name: Extract archive remotely
+        uses: appleboy/scp-action@master
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.API_KEY }}
+          source: ${{ github.sha }}.tar.gz
+          target: ${{ secrets.TARGET }}
+          envs: GITHUB_SHA
+          script: | 
+            tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C .

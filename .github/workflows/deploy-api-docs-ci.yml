@@ -54,7 +54,6 @@ jobs:
           key: ${{ secrets.API_KEY }}
           source: ${{ github.sha }}.tar.gz
           target: ${{ secrets.TARGET }}
-          envs: GITHUB_SHA
           script: | 
             tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C ${{ secrets.TARGET }}
             rm ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz

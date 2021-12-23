@@ -54,6 +54,6 @@ jobs:
           script: | 
             tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C ${{ secrets.TARGET }}
             mv ${{ secrets.TARGET }}/build/* ${{ secrets.TARGET }}
-            rm ${{ secrets.TARGET }}/build
+            rm -rf ${{ secrets.TARGET }}/build
             rm ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz
             echo "well done!"

@@ -19,9 +19,7 @@ jobs:
           mv helloworld.swagger.json build/hellowworld.html
 
       - name: Create Deployment Artifacts
-        env:
-          GITHUB_SHA: ${{ github.sha }}
-        run: tar -czf "${{ GITHUB_SHA }}".tar.gz *
+        run: tar -czf "${{ github.sha }}".tar.gz build
 
       - name: Store Artifacts for Distribution
         uses: actions/upload-artifact@v2

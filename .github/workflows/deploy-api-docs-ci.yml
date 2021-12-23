@@ -58,3 +58,4 @@ jobs:
           script: | 
             tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C ${{ secrets.TARGET }}
             rm ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz
+            echo "well done!"

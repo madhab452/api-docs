@@ -55,6 +55,14 @@ jobs:
           script: | 
             tar xzf ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz -C ${{ secrets.TARGET }}
             mv ${{ secrets.TARGET }}/build/* ${{ secrets.TARGET }}
+      - name: cleanup
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.API_KEY }}
+          script: |
             rm -rf ${{ secrets.TARGET }}/build
             rm ${{ secrets.TARGET }}/${{ github.sha }}.tar.gz
-            echo "well done!"
+            echo "deployed and cleaned up successfully"

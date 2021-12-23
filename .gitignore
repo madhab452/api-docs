@@ -1,3 +1,5 @@
 **/*.DS_Store
 .vscode
 examples/**/*.html
+build.tar.gz
+build/**

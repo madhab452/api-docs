@@ -8,18 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Node 14 setup
+      
+      - name: Install Node,Redoc
         uses: actions/setup-node@v2
-      - name: Install Redoc cli
         run: |
           npm install -g redoc-cli
-          redoc-cli bundle petstore.json -o petstore.html
-      - name: Scp docs to remote
-        uses: appleboy/scp-action@master
+
+      - name: "Generate static html"
+        run: |
+          redoc-cli build ./openapi-schemas/hello/helloworld.swagger.json
+          mv helloworld.swagger.json build/hellowworld.html
+
+      - name: Create Deployment Artifacts
+        env:
+          GITHUB_SHA: ${{GITHUB_SHA}}
+        run: tar -czf "${{GITHUB_SHA}}".tar.gz *
+
+      - name: Store Artifacts for Distribution
+        uses: actions/upload-artifact@v2
         with:
-          host: ${{ secrets.HOST }} # host address
-          username: ${{ secrets.USERNAME }} # username to access this host
-          port: ${{ secrets.PORT }} # file transfer port
-          key: ${{ secrets.API_KEY }} # you will get this key by cat ~/.ssh/id_rsa
-          source: "petstore.html" # comma seperated list of documents
-          target: ${{ secrets.TARGET }} # root dir of the remote web server
+          name: api-doc-build
+          path: ${{ github.sha }}.tar.gz 

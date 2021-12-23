@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pruplehaze.bar;
+
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option go_package = "purplehaze.bar";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+        title: "Bar Api";
+        version: "v1";
+    }
+    responses: {
+		key: "200";
+	}
+};
+
+// The bar service definition.
+service Bar {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+      description: "Bar service"
+  };
+
+  // Sends a greeting
+  rpc ServeDrink (DrinkRequest) returns (Drink) {}
+}
+
+// The request message containing the user's name.
+message DrinkRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message Drink {
+  google.protobuf.Timestamp time = 2;
+}

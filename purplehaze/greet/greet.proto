@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package pruplehaze.greet;
+
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option go_package = "purplehaze.greet";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+        title: "Greeter Api";
+        version: "v1";
+    }
+    responses: {
+		key: "200";
+	}
+};
+
+// The greeting service definition.
+service Greeter {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+      description: "Greeter service"
+  };
+
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+  google.protobuf.Timestamp time = 2;
+}

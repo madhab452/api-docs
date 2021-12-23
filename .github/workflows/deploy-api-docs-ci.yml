@@ -15,10 +15,20 @@ jobs:
       - name: Generate static html
         run: |
           npm install -g redoc-cli
-          redoc-cli bundle ./openapi-schemas/hello/helloworld.swagger.json -o build/hellowworld.html
-          redoc-cli bundle ./openapi-schemas/petstore/petstore.json -o build/petstore.html
-          redoc-cli bundle ./openapi-schemas/petstore/petstore-v2.json -o build/petstore-v2.html
 
+          find ./schemas -name "*.json" -print0 | while read -d $'\0' file
+          do
+            fname="$(basename -- ${file})" # eg. bar.swagger.json
+            fname_html=$(echo ${fname} | sed "s/swagger.json/html/") # bar.html
+
+            # if [! -d "./build"]; then
+            #     mkdir build
+            # fi
+
+            redoc-cli bundle ${file} -o build/${fname_html}
+            echo ${fname_html}
+          done
+          
       - name: Create deplyment artifacts
         run: tar -czf ${{ github.sha }}.tar.gz build
 
@@ -34,7 +44,7 @@ jobs:
     needs: create-deployment-artifacts
     steps:
       - name: Download artifact
-      - uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v2
         with: 
           name: api-doc-build
 

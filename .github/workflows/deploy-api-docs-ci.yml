@@ -9,11 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Install node
+      - name: Install node, redoc-cli
         uses: actions/setup-node@v2
 
       - name: Install redoc-cli
-        run: npm install -g redoc-cli
+        run: |
+          npm install -g redoc-cli
 
       - name: Generate static html
         run: |
@@ -22,7 +23,7 @@ jobs:
           redoc-cli bundle ./openapi-schemas/petstore/petstore-v2.json -o build/petstore-v2.html
 
       - name: Create deplyment artifacts
-        run: tar -czf "${{ github.sha }}".tar.gz build
+        run: tar -czf ${{ github.sha }}.tar.gz build
 
       - name: Store Artifacts for Distribution
         uses: actions/upload-artifact@v2

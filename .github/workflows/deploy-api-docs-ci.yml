@@ -20,8 +20,8 @@ jobs:
 
       - name: Create Deployment Artifacts
         env:
-          GITHUB_SHA: ${{GITHUB_SHA}}
-        run: tar -czf "${{GITHUB_SHA}}".tar.gz *
+          GITHUB_SHA: ${{ github.sha }}
+        run: tar -czf "${{ GITHUB_SHA }}".tar.gz *
 
       - name: Store Artifacts for Distribution
         uses: actions/upload-artifact@v2

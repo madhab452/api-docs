@@ -23,12 +23,6 @@ jobs:
           #install redoc-cli
           npm install -g redoc-cli
 
-          #install buf
-          GO111MODULE=on GOBIN=/usr/local/bin go get \
-          github.com/bufbuild/buf/cmd/buf \
-          github.com/bufbuild/buf/cmd/protoc-gen-buf-breaking \
-          github.com/bufbuild/buf/cmd/protoc-gen-buf-lint
-
           # if [! -d "./gen"]; then
           #   mkdir gen
           # fi 

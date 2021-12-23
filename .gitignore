@@ -2,7 +2,9 @@
 .vscode
 examples/**/*.html
 build.tar.gz
+
 build/**
 !build
-gen/**
-!build
+
+gen/**/*
+!gen

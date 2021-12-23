@@ -29,10 +29,10 @@ jobs:
           github.com/bufbuild/buf/cmd/protoc-gen-buf-breaking \
           github.com/bufbuild/buf/cmd/protoc-gen-buf-lint
 
-          if [! -d "./gen"]; then
-            mkdir gen
-          fi 
-          
+          # if [! -d "./gen"]; then
+          #   mkdir gen
+          # fi 
+
           buf generate
  
           find ./gen -name "*.json" -print0 | while read -d $'\0' file
@@ -40,9 +40,9 @@ jobs:
             fname="$(basename -- ${file})" # eg. bar.swagger.json
             fname_html=$(echo ${fname} | sed "s/swagger.json/html/") #bar.html
 
-            if [! -d "./build"]; then
-                mkdir build
-            fi
+            # if [! -d "./build"]; then
+            #     mkdir build
+            # fi
 
             redoc-cli bundle ${file} -o build/${fname_html}
             echo ${fname_html}

@@ -12,12 +12,9 @@ jobs:
       - name: Install node, redoc-cli
         uses: actions/setup-node@v2
 
-      - name: Install redoc-cli
-        run: |
-          npm install -g redoc-cli
-
       - name: Generate static html
         run: |
+          npm install -g redoc-cli
           redoc-cli bundle ./openapi-schemas/hello/helloworld.swagger.json -o build/hellowworld.html
           redoc-cli bundle ./openapi-schemas/petstore/petstore.json -o build/petstore.html
           redoc-cli bundle ./openapi-schemas/petstore/petstore-v2.json -o build/petstore-v2.html

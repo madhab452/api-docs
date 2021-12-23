@@ -17,6 +17,7 @@ jobs:
           npm install -g redoc-cli
           redoc-cli bundle ./openapi-schemas/hello/helloworld.swagger.json -o build/hellowworld.html
           redoc-cli bundle ./openapi-schemas/petstore/petstore.json -o build/petstore.html
+          redoc-cli bundle ./openapi-schemas/petstore/petstore-v2.json -o build/petstore-v2.html
 
       - name: Create Deployment Artifacts
         run: tar -czf "${{ github.sha }}".tar.gz build
